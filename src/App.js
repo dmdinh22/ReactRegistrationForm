@@ -1,21 +1,86 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
-}
+var Input = React.createClass({
+    render: function() {
+        return (
+            <div className="Input">
+                <input
+                    id={this.props.id}
+                    autoComplete="false"
+                    required
+                    type={this.props.type}
+                    placeholder={this.props.placeholder}
+                />
+                <label htmlFor={this.props.id} />
+            </div>
+        );
+    }
+});
+
+var Modal = React.createClass({
+    render: function() {
+        return (
+            <div className="Modal">
+                <form onSubmit={this.props.onSubmit} className="ModalForm">
+                    <Input
+                        id="name"
+                        type="text"
+                        placeholder="Jack-Edward Oliver"
+                    />
+                    <Input
+                        id="username"
+                        type="email"
+                        placeholder="mrjackolai@gmail.com"
+                    />
+                    <Input
+                        id="password"
+                        type="password"
+                        placeholder="password"
+                    />
+                    <button>
+                        Log in <i className="fa fa-fw fa-chevron-right" />
+                    </button>
+                </form>
+            </div>
+        );
+    }
+});
+
+var App = React.createClass({
+    getInitialState: function() {
+        return { mounted: false };
+    },
+
+    componentDidMount: function() {
+        this.setState({ mounted: true });
+    },
+
+    handleSubmit: function(e) {
+        this.setState({ mounted: false });
+        e.preventDefault();
+    },
+
+    render: function() {
+        var child;
+
+        if (this.state.mounted) {
+            child = <Modal onSubmit={this.handleSubmit} />;
+        }
+
+        return (
+            <div className="App">
+                <ReactCSSTransitionGroup
+                    transitionName="example"
+                    transitionEnterTimeout={500}
+                    transitionLeaveTimeout={300}
+                >
+                    {child}
+                </ReactCSSTransitionGroup>
+            </div>
+        );
+    }
+});
 
 export default App;
