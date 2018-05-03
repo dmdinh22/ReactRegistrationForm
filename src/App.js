@@ -2,8 +2,9 @@ import React from 'react';
 import './App.css';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
-var Input = React.createClass({
-    render: function() {
+var Input = React.createClass
+export default class Input extends React.Component {
+    render() {
         return (
             <div className="Input">
                 <input
@@ -17,22 +18,22 @@ var Input = React.createClass({
             </div>
         );
     }
-});
+};
 
-var Modal = React.createClass({
-    render: function() {
+export default class Modal extends React.Component {
+    render() {
         return (
             <div className="Modal">
                 <form onSubmit={this.props.onSubmit} className="ModalForm">
                     <Input
                         id="name"
                         type="text"
-                        placeholder="Jack-Edward Oliver"
+                        placeholder="Wade Wilson"
                     />
                     <Input
                         id="username"
                         type="email"
-                        placeholder="mrjackolai@gmail.com"
+                        placeholder="wadewilson@gmail.com"
                     />
                     <Input
                         id="password"
@@ -46,7 +47,7 @@ var Modal = React.createClass({
             </div>
         );
     }
-});
+};
 
 var App = React.createClass({
     getInitialState: function() {
